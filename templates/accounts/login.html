@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Jagrati | Login {% endblock %}
+
+{% block style %}
+
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}" type="text/css" />
+    <script src="{% static 'accounts/style.js' %}" type="text/javascript" defer></script>
+
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+    
+    {% for message in messages  %}            
+          <center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong>Message : </strong> {{ message }}
+               <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>-->
+              </center>
+          {% endfor %}
+
+    
+
+        <div class="container right-panel-active px-0 py-0" id="container">
+        
+            <div class="form-container sign-up-container">
+                
+                <form action="/accounts/signup" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <h1>Create Account</h1>
+                    
+                        <input type="text" name="username" placeholder="username" required />
+                        <input type="email" name="email" placeholder="Email" required />
+                        <input type="password" name="pass1" placeholder="Password" required />
+                        <input type="password" name="pass2" placeholder="Confirm Password" required />
+                        <span class="form-error"></span>
+                        <br/>
+
+                    <button type='submit' name='submit' value='sign_up'>Sign Up</button>
+               
+                </form>
+            
+            </div>
+            
+            <div class="form-container sign-in-container">
+                
+                <form action='/accounts/login' method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <h1>Sign in</h1>
+                    <br/>
+                    <span class="form-error"> </span>
+                    <input type="text" name="username" placeholder="Username" required />
+                    <input type="password" name="password" placeholder="password" required />
+                    <a>Forgot your password?</a>
+                    <button type='submit' name='submit' value='login'>Sign In</button>
+                </form>
+            
+            </div>
+          
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button class="ghost" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            
+            </div>d
+        
+        </div>
+    <!-- {% if signup_error %}
+        <script>document.getElementById('signUp').click();</script>{%endif%}-->
+ 
+{% endblock %}
