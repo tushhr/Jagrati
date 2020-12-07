@@ -9,7 +9,13 @@ from .models import Profile
 
 # Create your views here.
 def index(request):
-	return render(request, 'accounts/login.html')
+
+	#if user is logged in, redirect to home page
+	if  request.user.is_authenticated:
+		return redirect('/')
+	#else redirect to login page
+	else:
+		return render(request, 'accounts/login.html')
 
 def signup(request):
 	
@@ -19,17 +25,22 @@ def signup(request):
 		pass1=request.POST['pass1']
 		pass2=request.POST['pass2']
 		
+		#to check user entered information
+		#queryset of user based on, username and email
 		user = User.objects.filter(username=username)
 		user2 = User.objects.filter(email=email)
 
+		#if same username exits
 		if user.exists():
 			messages.error(request, "Account with entered username already exists")
 			return redirect('/accounts')
 		
+		#if same email address already exits
 		if user2.exists():
 			messages.error(request, "Account with entered email already exists")
 			return redirect('/accounts')
 
+		#if password won't match
 		if (pass1!= pass2):
 			messages.error(request, "Passwords do not match")
 			return redirect('/accounts')
@@ -40,12 +51,11 @@ def signup(request):
 		user.save()
 
 		
-		return redirect('/accounts/create')
+		return redirect('/')
 		    
 	else:
-		return HttpResponse("404 - Not Found")
+		return render(request, 'error.html')
 
-@login_required
 def create(request):
 	
 	user = request.user
@@ -65,12 +75,10 @@ def create(request):
 		city = request.POST['city']
 		state = request.POST['state']
 		pincode = request.POST['pincode']
-		profile_image = request.POST['profile_image']
 
 		profile = Profile(
 		    user=user, first_name=first_name, last_name=last_name, roll_no=roll_no, dob=dob, batch=batch,
-		    programme=programme,
-		    profile_image=profile_image, gender=gender, alt_email=alt_email,
+		    programme=programme, gender=gender, alt_email=alt_email,
 		    contact_no=contact_no, street_address1=street_address1,
 		    street_address2=street_address2, city=city, state=state,
 		    pincode=pincode,
@@ -79,7 +87,8 @@ def create(request):
 
 		return redirect('/')
 
-	return render(request, 'accounts/create_profile.html')
+	else:
+		return render(request, 'accounts/create_profile.html')
 
 def login(request):
     if request.method=="POST":
@@ -98,7 +107,8 @@ def login(request):
             messages.error(request, "Invalid credentials! Please try again")
             return redirect("/accounts")
 
-    return render(request, "auth.html")
+    return render(request, "error.html")
+
 
 def logout(request):
 	auth_logout(request)
