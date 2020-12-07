@@ -30,9 +30,6 @@ class Profile(models.Model):
     dob = models.DateField(verbose_name="Date of Birth", null = True)
     batch = models.IntegerField(null = True)
     programme = models.CharField(max_length=3, choices=PROGRAMME, default = 'bt')
-    profile_image = ProcessedImageField(
-    upload_to='profile_pics', processors=[ResizeToFill(300,300)],
-    format='JPEG', options={'quality': 60}, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER)
     alt_email = models.EmailField(verbose_name="Alternate Email", max_length=255, blank=True)
     contact_no = models.CharField(verbose_name="Contact Number", max_length=13)
