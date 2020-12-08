@@ -12,7 +12,13 @@ from accounts.models import Profile
 #Home page
 @login_required
 def index(request):
-	return render(request, 'inventory/home.html')
+	current_user = request.user
+	#if profile is completed, redirect to inventory page	
+	if Profile.objects.filter(user = current_user).exists():
+		return render(request, 'inventory/home.html')
+	#else redirect to complete profile
+	else:
+		return redirect('/accounts/create')
 
 #when someone clicks on add item
 def add_item(request):

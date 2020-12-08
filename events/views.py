@@ -10,8 +10,15 @@ from accounts.models import Profile
 
 # Create your views here.
 #Home Page
+@login_required
 def index(request):
-	return render(request, 'events/home.html')
+	current_user = request.user
+	
+	#if profile is complete redirect to events else redirect to complete profile page	
+	if Profile.objects.filter(user = current_user).exists():
+		return render(request, 'events/home.html')
+	else:
+		return redirect('/accounts/create')
 
 #To add an event
 def add(request):

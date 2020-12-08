@@ -25,7 +25,7 @@ def signup(request):
 		pass1=request.POST['pass1']
 		pass2=request.POST['pass2']
 		
-		#to check user entered information
+		#form validation
 		#queryset of user based on, username and email
 		user = User.objects.filter(username=username)
 		user2 = User.objects.filter(email=email)
@@ -50,59 +50,79 @@ def signup(request):
 		user.set_password(pass1)
 		user.save()
 
+		#log in user after signup
+		user=authenticate(username = username, password = pass1)
+		auth_login(request, user)
 		
-		return redirect('/')
+		return redirect('/accounts/create')
 		    
 	else:
 		return render(request, 'error.html')
 
 def create(request):
 	
-	user = request.user
+	current_user = request.user
 
-	if request.method == 'POST':
-		roll_no = request.POST['roll_no']
-		first_name = request.POST['first_name']
-		last_name = request.POST['last_name']
-		gender = request.POST['gender']
-		batch = request.POST['batch']
-		programme = request.POST['programme']
-		dob = request.POST['dob']
-		contact_no = request.POST['contact_no']
-		alt_email = request.POST['alt_email']
-		street_address1 = request.POST['street_address1']
-		street_address2 = request.POST['street_address2']
-		city = request.POST['city']
-		state = request.POST['state']
-		pincode = request.POST['pincode']
+	if Profile.objects.filter(user = current_user).exists():
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			roll_no = request.POST['roll_no']
+			first_name = request.POST['first_name']
+			last_name = request.POST['last_name']
+			gender = request.POST['gender']
+			batch = request.POST['batch']
+			programme = request.POST['programme']
+			dob = request.POST['dob']
+			contact_no = request.POST['contact_no']
+			alt_email = request.POST['alt_email']
+			street_address1 = request.POST['street_address1']
+			street_address2 = request.POST['street_address2']
+			city = request.POST['city']
+			state = request.POST['state']
+			pincode = request.POST['pincode']
 
-		profile = Profile(
-		    user=user, first_name=first_name, last_name=last_name, roll_no=roll_no, dob=dob, batch=batch,
+			#form validation 
+			user_profile = Profile.objects.filter(roll_no = roll_no)
+			
+			if user_profile.exists():
+				messages.error(request, "Roll No already in use")
+				return redirect('/accounts/create')
+
+			if roll_no[:4] != batch:
+				messages.error(request, "Your Roll No, and Batch does not match!")
+				return redirect('/accounts/create')
+
+			profile = Profile(
+		    user = current_user, first_name=first_name, last_name=last_name, roll_no=roll_no, dob=dob, batch=batch,
 		    programme=programme, gender=gender, alt_email=alt_email,
 		    contact_no=contact_no, street_address1=street_address1,
 		    street_address2=street_address2, city=city, state=state,
-		    pincode=pincode,
-		)
-		profile.save()
+		    pincode=pincode)
 
-		return redirect('/')
-
-	else:
-		return render(request, 'accounts/create_profile.html')
+			profile.save()
+			return redirect('/')
+		else:
+			return render(request, 'accounts/create_profile.html')
 
 def login(request):
     if request.method=="POST":
         # Get the post parameters
-        username=request.POST['username']
-        password=request.POST['password']
+        username = request.POST['username']
+        password = request.POST['password']
 
 
         user=authenticate(username = username, password = password)
         
         if user is not None:
-            auth_login(request, user)
-            messages.success(request, "Successfully Logged In")
-            return redirect("/")
+            auth_login(request, user) 
+
+            user_profile = User.objects.get(username = username)
+            if Profile.objects.filter(user = user_profile).exists():
+            	messages.success(request, "Successfully Logged In")
+            	return redirect("/")
+            else:
+            	return redirect('/accounts/create')
         else:
             messages.error(request, "Invalid credentials! Please try again")
             return redirect("/accounts")
