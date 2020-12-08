@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Jagrati | Login {% endblock %}
+
+{% block style %}
+
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}" type="text/css" />
+    <script src="{% static 'accounts/style.js' %}" type="text/javascript" defer></script>
+
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+    
+    {% for message in messages  %}            
+          <center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong>Message : </strong> {{ message }}
+            </div></center>
+    {% endfor %}
+
+    
+        <div class="form-container " style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            
+            <form action="/events/add" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <h1>Add An Event</h1>
+                    
+                <br/>
+                <span class="form-error"> </span>
+                <input type="text" name="event_name" placeholder="Event Name" required />
+                <input type="date" name="date" placeholder="Date" required />
+                <input type="text" name="venue" placeholder="Venue" required />
+                <input type="int" name="description" placeholder = "Description" required />
+                <input type="int" name="organiser1" placeholder="Host?(Please add your username)" required />
+                <input type="int" name="organiser2" placeholder="Co-Host?(Optional)"/>
+                <input type="text" name="winner1" placeholder="Winner? (Optional)"/>
+                <input type="text" name="winner2" placeholder="Runner Up? (Optional)"/>
+                <input type="text" name="winner3" placeholder="2nd Runner Up? (Optional)"/>
+
+                <button type='submit' name='submit' value='add'>Withdraw</button>
+           
+            </form>
+    
+    </div>]
+    <!-- {% if signup_error %}
+        <script>document.getElementById('signUp').click();</script>
+    {% endif %} -->
+
+{% endblock %}
