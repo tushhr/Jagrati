@@ -3,8 +3,9 @@ from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth  import authenticate,  login as auth_login, logout
-from django.contrib.auth.models import User
+from datetime import datetime
 
+from django.contrib.auth.models import User
 from .models import events
 from accounts.models import Profile
 
@@ -12,11 +13,27 @@ from accounts.models import Profile
 #Home Page
 @login_required
 def index(request):
+
+	data_old = events.objects.filter(date__lt = datetime.now())
+	data_new = events.objects.filter(date__gte = datetime.now())
+	
+	context={'data_old': data_old, 'data_new':data_new}
+
 	current_user = request.user
 	
 	#if profile is complete redirect to events else redirect to complete profile page	
 	if Profile.objects.filter(user = current_user).exists():
-		return render(request, 'events/home.html')
+		return render(request, 'events/home.html', context)
+	else:
+		return redirect('/accounts/create')
+
+@login_required
+def new_event(request):
+	current_user = request.user
+	
+	#if profile is complete redirect to events else redirect to complete profile page	
+	if Profile.objects.filter(user = current_user).exists():
+		return render(request, 'events/add_event.html')
 	else:
 		return redirect('/accounts/create')
 
@@ -52,5 +69,5 @@ def add(request):
 			return redirect('')
 
 
-	return render(request, 'events/add.html')
+	return render(request, 'events/add_event.html')
 
