@@ -41,4 +41,4 @@ class Profile(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.first_name
+        return self.first_name +"  "+ str(self.user)
