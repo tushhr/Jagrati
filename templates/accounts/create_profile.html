@@ -16,6 +16,11 @@
 {% endblock %}
 
 {% block content %}
+    {% for message in messages  %}            
+          <center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong>Message : </strong> {{ message }}
+            </div></center>
+    {% endfor %}
 
 <div class="container">
     <div class="py-3 mt-3 text-center">
@@ -30,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="rollNo">Roll No.</label>
-                        <input name="roll_no" type="number" class="form-control" id="rollNo" placeholder="Please Enter Your College Roll No." value="" inputmode="tel" required>
+                        <input name="roll_no" type="number" class="form-control" id="rollNo" placeholder="Roll No" value="" inputmode="tel" required>
                         <div class="invalid-feedback">
                             Valid Roll No. is required.
                         </div>
@@ -40,14 +45,14 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">First name</label>
-                        <input name="first_name" type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                        <input name="first_name" type="text" class="form-control" id="firstName" placeholder="First Name" value="" required>
                         <div class="invalid-feedback">
                             Valid First Name is required.
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName">Last name</label>
-                        <input name="last_name" type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                        <input name="last_name" type="text" class="form-control" id="lastName" placeholder="Last Name" value="" required>
                         <div class="invalid-feedback">
                             Valid Last Name is required.
                         </div>
@@ -143,20 +148,13 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- adding profile picture -->
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="profileImage">Profile Picture <span class="text-muted">(Optional)</span></label>
-                        <input name="profile_image" type="file" id="profileImage" placeholder="" value="">
-                    </div>
-                </div>
                 <hr class="mb-4">
-                <div class="row justify-content-center mb-4">
+                <center><div class="row justify-content-center mb-4">
                     <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" type="submit">Continue</button>
+                        <button type="submit" class="btn-get-started scrollto" type="submit">Continue</button>
                     </div>
                 </div>
+                </center>
                 
             </form>
 
