@@ -2,53 +2,108 @@
 
 {% load static %}
 
-{% block title %} Jagrati | Login {% endblock %}
-
-{% block style %}
-
-    <link rel="stylesheet" href="{% static 'accounts/style.css' %}" type="text/css" />
-    <script src="{% static 'accounts/style.js' %}" type="text/javascript" defer></script>
-
-{% endblock %}
-
-{% block navbar %}
-{% endblock %}
+{% block title %} Jagrati | Events {% endblock %}
 
 {% block content %}
+  <!--Past Events Starts-->
+  <div><center ><h1 style="margin-top: 8px;"> Past Events</h1></center></div>
+  
+  <div class="row row-cols-1 row-cols-md-3 my-5 mx-5 fde">
     
-    {% for message in messages  %}            
-          <center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                <strong>Message : </strong> {{ message }}
-            </div></center>
+    {% for event in data_old %}
+    <div class="col mb-4">
+      <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  width: 90%; overflow: hidden; margin-bottom: 5px; overflow: hidden;">
+        
+        <img src="{{event.image.url}}" class="card-img-top " alt="..." style="height: 300px;">
+        <div class="card-body">
+          <h5 class="card-title">{{event.event_name}}</h5>
+          <p class="card-text">{{event.description| truncatechars:25}}</p>
+        </div>
+		
+		<!-- Button trigger modal -->
+		<center><button class="btn-get-started scrollto" data-toggle="modal" data-target="#event_old{{ forloop.counter }}" style="width: 150px;">
+		  More
+		</button></center>
+
+		<!-- Modal -->
+		<div class="modal fade" id="event_old{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">{{event.event_name}}</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<img src="{{event.image.url}}" class="card-img-top " alt="...">
+		      	<br>
+		      	<br>
+          		<p class="card-text">{{event.description}}</p>		
+          		<p class="card-text">Venue: {{ event.venue }}</p>	
+          		<p class="card-text">Date: {{ event.date }}</p>	
+          		
+		      </div>
+		    </div>
+		  </div>
+		</div>
+      
+      </div>
+    </div>
     {% endfor %}
+  
+  </div>
+  <!--Past Events Ends-->
 
+  <!--Upcoming Events Starts-->
+   <div><center ><h1 style="margin: 8px;"> Upcoming Events</h1></center></div>
+  
+  <div class="row row-cols-1 row-cols-md-3 my-5 mx-5 fde">
     
-        <div class="form-container " style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-            
-            <form action="/events/add" method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <h1>Add An Event</h1>
-                    
-                <br/>
-                <span class="form-error"> </span>
-                <input type="text" name="event_name" placeholder="Event Name" required />
-                <input type="date" name="date" placeholder="Date" required />
-                <input type="text" name="venue" placeholder="Venue" required />
-                <input type="int" name="description" placeholder = "Description" required />
-                <input type="int" name="organiser1" placeholder="Host?(Please add your username)" required />
-                <input type="int" name="organiser2" placeholder="Co-Host?(Optional)"/>
-                <input type="text" name="winner1" placeholder="Winner? (Optional)"/>
-                <input type="text" name="winner2" placeholder="Runner Up? (Optional)"/>
-                <input type="text" name="winner3" placeholder="2nd Runner Up? (Optional)"/>
+    {% for event in data_new %}
+    <div class="col mb-4">
+      <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  width: 90%; overflow: hidden; margin-bottom: 5px; overflow: hidden;">
+        
+        <img src="{{event.image.url}}" class="card-img-top " alt="..." style="height: 300px;">
+        <div class="card-body">
+          <h5 class="card-title">{{event.event_name}}</h5>
+          <p class="card-text">{{event.description| truncatechars:25}}</p>
+        </div>
+		
+		<!-- Button trigger modal -->
+		<center><button class="btn-get-started scrollto" data-toggle="modal" data-target="#event_new{{ forloop.counter }}" style="width: 150px;">
+		  More
+		</button></center>
 
-                <button type='submit' name='submit' value='add'>Withdraw</button>
-           
-            </form>
-    
-    </div>]
-    <!-- {% if signup_error %}
-        <script>document.getElementById('signUp').click();</script>
-    {% endif %} -->
+		<!-- Modal -->
+		<div class="modal fade" id="event_new{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">{{event.event_name}}</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<img src="{{event.image.url}}" class="card-img-top " alt="...">
+		      	<br>
+		      	<br>
+          		<p class="card-text">{{event.description}}</p>		
+          		<p class="card-text">Venue: {{ event.venue }}</p>	
+          		<p class="card-text">Date: {{ event.date }}</p>	
+          		
+		      </div>
+		    </div>
+		  </div>
+		</div>
+      
+      </div>
+    </div>
+    {% endfor %}
+  
+  </div>
+
+  <!--Upcoming Events Ends-->
 
 {% endblock %}
