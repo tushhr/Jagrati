@@ -14,10 +14,10 @@ def index(request):
 	
 	context={'data_old': data_old, 'data_new':data_new}
 
-	current_user = request.user
-	if current_user is not None:
+	
+	if request.user.is_authenticated:
 		#if profile is completed, redirect to home page
-		if Profile.objects.filter(user = current_user).exists():
+		if Profile.objects.filter(user = request.user).exists():
 			return render(request, "home/index.html", context)
 		#else redirect to complete profile page
 		else:
