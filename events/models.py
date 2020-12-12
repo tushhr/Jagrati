@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.utils.timezone import now 
 import datetime
 from django.db import models
-
+from PIL import Image
 
 from django.contrib.auth.models import User
 from accounts.models import Profile
@@ -17,8 +17,6 @@ class events(models.Model):
 	description = models.CharField(max_length = 200, default = 'Fun event')
 	organiser = models.ManyToManyField(Profile)
 	winner1 = models.CharField(max_length = 20, null = True, blank = True)
-	winner2 = models.CharField(max_length = 20, null = True, blank = True)
-	winner3 = models.CharField(max_length = 20, null = True, blank = True)
 	image = models.ImageField(null = True, upload_to ='events/')
 
 
