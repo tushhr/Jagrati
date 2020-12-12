@@ -10,6 +10,7 @@ from accounts.models import Profile
 
 # Create your views here.
 #Home page
+
 @login_required
 def index(request):
 	current_user = request.user
