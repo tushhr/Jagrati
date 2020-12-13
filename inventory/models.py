@@ -13,7 +13,6 @@ class asset_donation(models.Model):
 	asset_name = models.CharField(verbose_name = 'Asset', max_length = 20, default = 'bags', null = False)
 	donated_by = models.CharField(verbose_name = 'Donated By', max_length = 20)
 	quantity = models.IntegerField(default = 1, null = False)
-	stored_at = models.CharField(max_length = 20)
 	date = models.DateTimeField(default=now)
 	
 	def __str__(self):
@@ -36,7 +35,6 @@ class asset_transaction(models.Model):
 	asset_name = models.CharField( max_length = 20, default = 'bags', null = False)
 	volunteer = models.CharField(verbose_name = 'volunteer', max_length = 20)
 	quantity = models.IntegerField()
-	taken_from = models.CharField(max_length = 20)
 	date = models.DateTimeField(default = now)
 
 	def __str__(self):
