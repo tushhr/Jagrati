@@ -28,11 +28,10 @@ def add_item(request):
 		asset_name=request.POST['asset_name']
 		donated_by=request.POST['donated_by']
 		quantity=request.POST['quantity']
-		stored_at=request.POST['stored_at']
 		date=request.POST['date']
 
 		#store transaction detail, with asset_name as lower to handle all case
-		donation = asset_donation(asset_name=asset_name.lower(), donated_by=donated_by, quantity=quantity, stored_at=stored_at, date=date )
+		donation = asset_donation(asset_name=asset_name.lower(), donated_by=donated_by, quantity=quantity, date=date )
 		#saving donation transaction
 		donation.save()
 
@@ -60,7 +59,6 @@ def withdraw(request):
 		asset_name=request.POST['asset_name']
 		volunteer=request.POST['volunteer']
 		quantity=request.POST['quantity']
-		taken_from=request.POST['taken_from']
 		date=request.POST['date']
 
 		#check the username
@@ -77,19 +75,19 @@ def withdraw(request):
 
 			#if item exists
 			if item.exists():
-
+				remove_item = asset.objects.get(asset_name = asset_name.lower())
 				#check for quantity, does we have given amount of quantity of that item
-				if int(item.quantity)>=int(quantity):
+				if int(remove_item.quantity) >= int(quantity):
 					#if yes, then subtract the number of quantity removed.
-					item.quantity = int(item.quantity) - int(quantity)
+					remove_item.quantity = int(remove_item.quantity) - int(quantity)
 					
 					#saving withdrawn transaction details
-					withdraw = asset_transaction(asset_name= asset_name.lower(), volunteer=volunteer, quantity=quantity, taken_from=taken_from, date=date )
+					withdraw = asset_transaction(asset_name= asset_name.lower(), volunteer=volunteer, quantity=quantity, date=date )
 					withdraw.save()
 					
 					#saving asset details
-					item.save()
-					messages.error(request, "Transaction Successfull!")
+					remove_item.save()
+					messages.success(request, "Transaction Successfull!")
 					return redirect('/inventory')
 				else:
 					messages.error(request, "Sorry, we don't have much "+asset_name+" in our warehouse.")
