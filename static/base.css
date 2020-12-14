@@ -1,21 +1,30 @@
-/*NAV BAR STARTS*/
-nav
-{
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  height: 63px;
-  font-size: 18px;
-  background-color: rgb(252,252,252);
-}
-
+/*------ Global ------*/
 body
 {
   color: #4e4039;
   font-family: "Open Sans", sans-serif;
 }
 
-/*Right nav bar*/
+/*------ NAV BAR STARTS ------*/
+nav
+{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 63px;
+  width: 100%;
+  font-size: 18px;
+  background-color: rgb(252,252,252);
+}
+
+/*------ Shadow while Navbar scrolls down ------*/
+.floatingNav
+{
+  box-shadow: 8px 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/*------ Right Nav Bar ------*/
 .navbar1
 {
   position: absolute;
@@ -40,6 +49,7 @@ body
 {
   color: #f17e01 !important;
   transition: 0.4s;
+  text-decoration: none;
 }
 .navbar1 button
 {
@@ -54,8 +64,43 @@ body
   color: orange;
   transition: 0.4s;
 }
+.btn-get-started 
+{
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 3px;
+  transition: 0.5s;
+  margin: 10px;
+  color: #fff;
+  background: #eb5d1e;
+}
 
-/*Left Nav Bar*/
+.btn-get-started:hover 
+{
+  background: #ef7f4d;
+}
+
+.navlink
+{
+  position: absolute !important;
+  background-color: rgba(0,0,0,.45)!important;
+  animation: translate 1s;
+}
+.navlink a
+{
+  color: white !important;
+}
+
+.nav-link a:hover
+{
+  transition: 0.6s;
+}
+
+/*------ Left Nav Bar ------*/
 .navbar 
 {
   float: left;
@@ -85,30 +130,37 @@ body
   padding:  0px;
   display: none;
 }
+
 .child-2:hover ~ hr {
-  margin-left: 20%;
+	width: 17%;
+  margin-left: 18%;
 }
 
 .child-3:hover ~ hr {
-  margin-left: 40%;
+	width: 24%;
+  margin-left: 36%;
 }
 .child-4:hover ~ hr {
-  margin-left:60%;
+	width: 17%;
+  margin-left: 61%;
 }
 
 .child-5:hover ~ hr {
+	width: 20%;
   margin-left: 80%;
 }
+
 hr {
   height: .25rem;
-  width: 18%;
+  width: 16%;
   margin: 0;
   margin-bottom: 2px;
   background: #f17e01;
   border: none;
   transition: .3s ease-in-out;
 }
-/*Left Nav Bar Menu*/
+
+/*------ Hamburger Menu ------*/
 .bar 
 {
   float: left;
@@ -148,7 +200,7 @@ hr {
   transform: rotate(45deg) translate(-8px, -8px);
 }
 
-/*Animation for navbar*/
+/*----- Animation for navbar ------*/
 @keyframes translate
 {
   0% 
@@ -169,22 +221,7 @@ hr {
   }
 }
 
-.navlink
-{
-  position: absolute !important;
-  background-color: rgba(0,0,0,.45)!important;
-  animation: translate 1s;
-}
-.navlink a
-{
-  color: white !important;
-}
-
-.nav-link a:hover
-{
-  transition: 0.6s;
-}
-/*Responsive Navbar*/
+/*------ Responsive Navbar ------*/
 @media(max-width: 760px)
 {
   .navbar a
@@ -260,29 +297,141 @@ hr {
   }  
 }
 
-.btn-get-started 
-{
-  font-family: "Raleway", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 8px 28px;
-  border-radius: 3px;
-  transition: 0.5s;
-  margin: 10px;
-  color: #fff;
-  background: #eb5d1e;
+
+/*------ Footer ------*/
+.grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 1fr;
+    overflow: hidden;
 }
 
-.btn-get-started:hover 
-{
-  background: #ef7f4d;
+.youtube{
+    display: none;
 }
 
-/*Shadow while navbar scrolls down*/
-.floatingNav
-{
-  box-shadow: 8px 2px 15px rgba(0, 0, 0, 0.2);
+.hidden-address{
+    display: none;
 }
 
+
+.contact .info {
+    border-top: 3px solid #eb5d1e;
+    border-bottom: 3px solid #eb5d1e;
+    height: 420px;
+    padding: 30px;
+    background: #fff;
+    width: 100%;
+}
+
+.contact .info div{
+    height: 92px;
+}
+
+/*.contact .reverse div i{
+    display: flex;
+    float: right;
+}*/
+
+.contact .info i {
+    font-size: 20px;
+    color: #eb5d1e;
+    float: left;
+    width: 44px;
+    height: 44px;
+    background: #fdf1ec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+}
+  
+.contact .info h4 {
+    padding: 0 0 0 60px;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #7a6960;
+}
+  
+.contact .info h2{
+      color: #7a6960;
+      padding-bottom: 20px;
+}
+
+.contact .info p {
+    padding: 0 0 10px 60px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #ab9d95;
+}
+
+.contact .info a{
+      text-decoration: none;
+      color: #7a6960;
+}
+  
+.contact .info i:hover {
+    background: #eb5d1e;
+    color: #fff;
+}
+
+.map{
+    display: flex;
+    justify-content: center;
+}
+
+iframe{
+    height: 399px;
+    width: 399px;
+    border-radius: 50%;
+    margin: 20px;
+    shape-outside: circle();
+    clip-path: circle();
+}
+
+@media(max-width: 1075px){
+    .grid{
+        width: 100%;
+        grid-template-rows: 1fr 0.7fr;
+        grid-template-columns: 50% 50%;
+        grid-template-areas: 
+        "get-in-contact more-info"
+        "map map";
+    }
+    
+    .more-info{
+        grid-area: more-info;
+    }
+
+    .get-in-touch{
+        grid-area: get-in-contact;
+    }
+
+    .map{
+        grid-area: map;
+    }
+/*
+    .hidden-address{
+        grid-area: hidden-address;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #7a6960;
+    }
+
+    .address{
+        display: none;
+    }
+
+    .youtube{
+        display: block;
+    }
+*/
+    iframe{
+        width: 100%;
+        height: 100%;
+    }
+}
