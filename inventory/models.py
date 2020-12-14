@@ -16,7 +16,7 @@ class asset_donation(models.Model):
 	date = models.DateTimeField(default=now)
 	
 	def __str__(self):
-		return self.asset_name
+		return self.asset_name+" by "+ str(self.donated_by)
 
 #all assets databse
 class asset(models.Model):
