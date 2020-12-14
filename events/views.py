@@ -50,17 +50,13 @@ def add(request):
 		winner1=request.POST['winner1']
 		image = request.FILES['image']
 
-		#check whether event with same name exist or not
-		if events.objects.filter(event_name = event_name).exists():
-			messages.error(request, "Event with same name already exist!")
-		else:
-			event = events(event_name = event_name, date = date, venue = venue, description = description, winner1 = winner1, image = image)
-			event.save()
-			event.organiser.add(Profile.objects.get(roll_no = organiser1))
+		event = events(event_name = event_name, date = date, venue = venue, description = description, winner1 = winner1, image = image)
+		event.save()
+		event.organiser.add(Profile.objects.get(roll_no = organiser1))
 		
-			event.save()
-			messages.error(request, "Done Successfully!")
-			return redirect('/')
+		event.save()
+		messages.success(request, "Done Successfully!")
+		return redirect('/')
 
 
 	return render(request, 'events/add_event.html')
