@@ -63,6 +63,7 @@ def create(request):
 	
 	current_user = request.user
 
+	#if user already has profile, redirect to previous page
 	if Profile.objects.filter(user = current_user).exists():
 		return redirect('/')
 	else:
@@ -119,7 +120,6 @@ def login(request):
 
             user_profile = User.objects.get(username = username)
             if Profile.objects.filter(user = user_profile).exists():
-            	messages.success(request, "Successfully Logged In")
             	return redirect("/")
             else:
             	return redirect('/accounts/create')
@@ -132,7 +132,7 @@ def login(request):
 
 def logout(request):
 	auth_logout(request)
-	messages.success(request, "Successfully logged out")
+	messages.success(request, "Successfully Logged out")
 	return redirect('/accounts')
 
 	

@@ -8,6 +8,7 @@ from rest_framework.authtoken.models import Token
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
+#Profile Database
 class Profile(models.Model):
     GENDER = (
     ('M', 'Male'),
