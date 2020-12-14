@@ -11,13 +11,10 @@
 
 {% endblock %}
 
-{% block navbar %}
-{% endblock %}
-
 {% block content %}
-    
+    <div style="margin: 40px;">
     {% for message in messages  %}            
-          <center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          <center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width: 400px;">
                 <strong>Message : </strong> {{ message }}
                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -25,7 +22,7 @@
               </div>--></div></center>
           {% endfor %}
 
-    <div class="container right-panel-active" id="container">
+    <div class="container right-panel-active" id="container" style="margin: 0px;">
     
         <div class="form-container sign-up-container" >
     
@@ -39,7 +36,6 @@
                 <input type="text" name="asset_name" placeholder="Name of Asset" required />
                 <input type="text" name="volunteer" placeholder="Please, enter your username!" required />
                 <input type="int" name="quantity" placeholder = "Quantity" required />
-                <input type="text" name="taken_from" placeholder="Taken From" required />
                 <input type="date" name="date" placeholder="Date" required />
 
                 <button type='submit' name='submit' value='Withdraw'>Withdraw</button>
@@ -59,7 +55,6 @@
                 <input type="text" name="asset_name" placeholder="Name of Asset" required />
                 <input type="text" name="donated_by" placeholder="Donated by" required />
                 <input type="int" name="quantity" placeholder = "Quantity" required />
-                <input type="text" name="stored_at" placeholder="New Home?" required />
                 <input type="date" name="date" placeholder="Date" required />
                 <button type='submit' name='submit' value='add'>Add</button>
             </form>
@@ -84,8 +79,9 @@
     
     
     </div>
-    <!-- {% if signup_error %}
-        <script>document.getElementById('signUp').click();</script>
-    {% endif %} -->
+</div>
 
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

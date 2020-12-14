@@ -11,13 +11,12 @@
 
 {% endblock %}
 
-{% block navbar %}
-{% endblock %}
 
 {% block content %}
 
+<div style="margin: 40px;">
 {% for message in messages  %}            
-<center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+<center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width: 400px;">
     <strong>Message : </strong> {{ message }}
 </div></center>
 {% endfor %}
@@ -36,7 +35,7 @@
         <input type="date" name="date" placeholder="Date" required />
         <input type="text" name="venue" placeholder="Venue" required />
         <input type="int" name="description" placeholder = "Description" required />
-        <input type="int" name="organiser1" placeholder="Host?(Please add your username)" required />
+        <input type="int" name="organiser1" placeholder="Host?(Please add your Roll No.)" required />
         <input type="int" name="organiser2" placeholder="Co-Host?(Optional)"/>
         <input type="text" name="winner1" placeholder="Winner? (Optional)"/>
         <input type="file" name="image" id="profileImage">
@@ -46,5 +45,8 @@
     </form>
     
 </div>
+</div>
 
+{% endblock %}
+{% block footer%}
 {% endblock %}

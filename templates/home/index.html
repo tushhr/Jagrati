@@ -7,7 +7,6 @@
 {% block style %}
 
     <link rel="stylesheet" href="{% static 'home/style.css' %}" type="text/css" />
-    <script src="{% static 'home/style.js' %}" type="text/javascript" defer></script>
 
 {% endblock %}
 
@@ -20,13 +19,13 @@
 
 	    <div class="container">
 	    	<div class="row">
-	       		<div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 mt-5">
+	       		<div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 mt-5 " data-aos="zoom-in" data-aos-offset="400"data-aos-easing="ease-in-sine">
 	          		<h1>Welcome to <a style="color:#f17e01;" class="magica" >Jagrati</a></h1>
-	          		<h2>We are team of dedicated students, ready to make this world a better place!</h2>
+	          		<h2>We are a team of dedicated students, on a path to make this world a better place!</h2>
 	          		<a href="#about" class="btn-get-started scrollto">Donate</a>
 	        	</div>
 	        
-	        <div class="col-lg-6 order-1 order-lg-2 header-img">
+	        <div class="col-lg-6 order-1 order-lg-2 header-img" data-aos="zoom-in" data-aos-offset="400"data-aos-easing="ease-in-sine">
 	        	<img src="{% static 'home/images/edu.svg' %}" class="img-fluid animated" alt="">
 	        </div>
 	      </div>
@@ -37,28 +36,62 @@
   
 	</br></br></br></br>
   
-	<!--Past Events Starts-->
-	<div><center ><h1 style="margin-top: 8px;"> Past Events</h1></center></div>
-  
- 	<div class="row row-cols-1 row-cols-md-3 my-5 mx-5 fde">
-	    
-		{% for event in data_old %}
-		{% if forloop.counter <= 3 %}
-		
-		<div class="col mb-4">
-	    	<div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  width: 90%; overflow: hidden; margin-bottom: 5px; overflow: hidden;">
-	        
-		        <img src="{{event.image.url}}" class="card-img-top " alt="..." style="height: 300px;">
-		        <div class="card-body">
-		          <h5 class="card-title">{{event.event_name}}</h5>
-		          <p class="card-text">{{event.description| truncatechars:25}}</p>
-		        </div>
-		    
-				<!-- Button trigger modal -->
-				<center><button class="btn-get-started scrollto" data-toggle="modal" data-target="#event_old{{ forloop.counter }}" style="width: 150px; border: 0px;">More</button></center>
+	<!-- About section starts -->
+    <section id="about-us">
+        <div class="cntainer">
+            <div class="intro" data-aos='fade-up'>
+                <h1>About Us</h1>
+                <p>You must not lose faith in humanity. Humanity is an ocean; if a few drops of the ocean are dirty, the ocean does not become dirty.</p>
+            </div>
+            <div class="vision">
+                <div data-aos='fade-left' data-aos-delay="300" data-aos-easing='ease-in-cubic' data-aos-duration="500">
+                    <img src='{% static "home/images/ill.svg" %}'>
+                </div>
+                <div data-aos='fade-right'>
+                    <h2>VISION</h2>
+                    <p>Our vision is to see india one day having no person illiterate and no poverty .We are trying to make good citizens of India.Technological resources for contributing to the economic and social development of the nation at large and region in particular.</p>
+                </div>
+            </div>
+            <div class="clr"></div>
+            <div class="mission">
+                <div data-aos='fade-right' data-aos-delay="300" data-aos-easing='ease-in' data-aos-duration="500">
+                    <img src='{% static "home/images/study.svg" %}'>
+                </div>
+                <div data-aos='fade-left'>
+                    <h2>MISSION</h2>
+                    <p>Our mission is to erradicate illiteracy from India We are moving toward our mission by implementing this in IIIT Jabalpur by giving quality and value education to student of nearby villages. Our ultimate goal to extend our helping hand to each and every needy in India and make new India in the comming days.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About section ends -->
 
-		    	<!-- Modal -->
-		    	<div class="modal fade" id="event_old{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<!--Past Events Starts-->
+	<div ><center ><h1 style="padding-top: 20px;"> Past Events</h1></center></div>
+  
+ 
+ 	<div class="card-container">
+ 		{% for event in data_old %}
+		{% if forloop.counter <= 3 %}
+
+    	<div class="card" data-aos="fade-left" data-aos-duration="1500">
+        	<div class="card-img"><img src="{{event.image.url}}" alt="image" style="height: 300px;"></div>
+        	<br>
+        	
+        	<div class="card-text">
+            	<h5 class="card-title">{{event.event_name}}</h5>
+		        <p class="card-text">{{event.description| truncatechars:50}}</p>
+		       
+        	</div>
+        	
+        	<!-- Button trigger modal -->
+			<center><button class="btn-get-started scrollto" data-toggle="modal" data-target="#event_old{{ forloop.counter }}" style="width: 150px; border: 0px; margin-bottom: 25px; ">More</button></center>
+
+		    	 
+		    	
+    	</div>
+
+<div class="modal fade" id="event_old{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		   			<div class="modal-dialog modal-dialog-centered" role="document">
 		        		<div class="modal-content">
 		          			<div class="modal-header">
@@ -80,68 +113,69 @@
 		        		</div>
 		      		</div>
 		    	</div>
-      	
-      		</div>
-    	
-    	</div>
-    	
     	{% endif %}
     	{% endfor %}
-  	
-  	</div>
-	<!--Past Events Ends-->
 
-  	<!--Upcoming Events Starts-->
-   	<div><center ><h1 style="margin: 8px;"> Upcoming Events</h1></center></div>
-  
-  	<div class="row row-cols-1 row-cols-md-3 my-5 mx-5 fde">
-    
-    {% for event in data_new %}
-    {% if forloop.counter <= 3%}
-    <div class="col mb-4">
-    	<div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  width: 90%; overflow: hidden; margin-bottom: 5px; overflow: hidden;">
-        
-        	<img src="{{event.image.url}}" class="card-img-top " alt="..." style="height: 300px;">
-        	<div class="card-body">
-          		<h5 class="card-title">{{event.event_name}}</h5>
-          		<p class="card-text">{{event.description| truncatechars:25}}</p>
-        	</div>
-    
-	    	<!-- Button trigger modal -->
-	    	<center><button class="btn-get-started scrollto" data-toggle="modal" data-target="#event_new{{ forloop.counter }}" style="width: 150px; border: 0px;">More</button></center>
-
-		    <!-- Modal -->
-		    <div class="modal fade" id="event_new{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		    	<div class="modal-dialog modal-dialog-centered" role="document">
-		        	<div class="modal-content">
-		          		<div class="modal-header">
-				            <h5 class="modal-title" id="exampleModalLongTitle">{{event.event_name}}</h5>
-				            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				            	<span aria-hidden="true">&times;</span>
-				            </button>
-			          	</div>
-		          
-			          	<div class="modal-body">
-				            <img src="{{event.image.url}}" class="card-img-top " alt="...">
-				            <br>
-				            <br>
-				            <p class="card-text">{{event.description}}</p>    
-				            <p class="card-text">Venue: {{ event.venue }}</p> 
-				            <p class="card-text">Date: {{ event.date }}</p>   
-			            </div>
-
-		        	</div>
-		      	</div>
-		    </div>
-	      
-	    </div>
     </div>
-	{% endif %}
-	{% endfor %}
+	<!--Past Events Ends-->
+	<br><br>
+  	
+  	<!--Upcoming Events Starts-->
+   	<div style="background-color: #fef8f5;"><center ><h1 style="padding-top: 20px; "> Upcoming Events</h1></center>
   
-  	</div>
+ 
+ 	<div class="card-container" style="background-color: #fef8f5;">
+ 		{% for event in data_new %}
+		{% if forloop.counter <= 3 %}
 
+    	<div class="card" data-aos="fade-right" data-aos-duration="1500">
+        	<div class="card-img"><img src="{{event.image.url}}" alt="image" style="height: 300px;"></div>
+        	<br>
+        	
+        	<div class="card-text">
+            	<h5 class="card-title">{{event.event_name}}</h5>
+		        <p class="card-text">{{event.description| truncatechars:50}}</p>
+		       
+        	</div>
+        	
+        	<!-- Button trigger modal -->
+			<center><button class="btn-get-started scrollto" data-toggle="modal" data-target="#event_new{{ forloop.counter }}" style="width: 150px; border: 0px; margin-bottom: 25px; ">More</button></center>
+
+		    	 
+		    	
+    	</div>
+
+    	<div class="modal fade" id="event_new{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		   			<div class="modal-dialog modal-dialog-centered" role="document">
+		        		<div class="modal-content">
+		          			<div class="modal-header">
+		            			<h5 class="modal-title" id="exampleModalLongTitle">{{event.event_name}}</h5>
+		            			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		              				<span aria-hidden="true">&times;</span>
+		            			</button>
+		          			</div>
+		          		
+		          			<div class="modal-body">
+		           	 			<img src="{{event.image.url}}" class="card-img-top " alt="...">
+					            <br>
+					            <br>
+					            <p class="card-text">{{event.description}}</p>    
+					            <p class="card-text">Venue: {{ event.venue }}</p> 
+					            <p class="card-text">Date: {{ event.date }}</p>  
+		          			</div>
+		        		
+		        		</div>
+		      		</div>
+		    	</div>
+    	{% endif %}
+    	{% endfor %}
+
+    </div>
+</div>
   	<!--Upcoming Events Ends-->
+    <br><br>
     
+
+ 
 
 {% endblock %}
