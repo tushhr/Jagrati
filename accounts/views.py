@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from .models import Profile
+from .forms import LoginForm
 
 # Create your views here.
 def index(request):
@@ -107,32 +108,32 @@ def create(request):
 			return render(request, 'accounts/create_profile.html')
 
 def login(request):
+
     if request.method=="POST":
         # Get the post parameters
-        username = request.POST['username']
-        password = request.POST['password']
+        login_form = LoginForm(request.POST)
 
+        if login_form.is_valid():
+        	username = login_form.cleaned_data['username']
+        	password = login_form.cleaned_data['password']
+	        user=authenticate(username = username, password = password)
+	        
+	        if user is not None:
+	            auth_login(request, user) 
 
-        user=authenticate(username = username, password = password)
-        
-        if user is not None:
-            auth_login(request, user) 
+	            user_profile = User.objects.get(username = username)
+	            if Profile.objects.filter(user = user_profile).exists():
+	            	return redirect("/")
+	            else:
+	            	return redirect('/accounts/create')
+	        else:
+	            messages.error(request, "Invalid credentials! Please try again")
+	            return redirect("/accounts")
 
-            user_profile = User.objects.get(username = username)
-            if Profile.objects.filter(user = user_profile).exists():
-            	return redirect("/")
-            else:
-            	return redirect('/accounts/create')
-        else:
-            messages.error(request, "Invalid credentials! Please try again")
-            return redirect("/accounts")
-
-    return render(request, "error.html")
+    return render(request, "error.html", {'login_form': login_form})
 
 
 def logout(request):
 	auth_logout(request)
 	messages.success(request, "Successfully Logged out")
 	return redirect('/accounts')
-
-	

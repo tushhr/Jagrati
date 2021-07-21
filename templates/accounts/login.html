@@ -54,7 +54,6 @@
                 
                 <form action='/accounts/login' method="POST">
                     {% csrf_token %}
-                    {{ form.as_p }}
                     <h1>Sign in</h1>
                     <br/>
                     <span class="form-error"> </span>
